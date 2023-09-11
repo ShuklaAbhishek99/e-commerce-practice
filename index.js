@@ -5,6 +5,7 @@ const path = require('path');
 // importing the routes for use
 const productRoutes = require('./routes/products');
 const ejsMate = require('ejs-mate');
+var methodOverride = require('method-override');
 const PORT = 5000;
 
 
@@ -13,6 +14,7 @@ app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }))
 
