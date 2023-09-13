@@ -25,7 +25,11 @@ router.post('/products', async(req, res)=>{
 // product show request
 router.get('/products/:id', async (req, res)=>{
     const {id} = req.params;
-    const product = await Product.findById(id);
+    // Population is the process of replacing the specified path in the document of one collection,
+    // with the actual document from the other collection
+    // Need of Population: Whenever in the schema of one collection we provide a reference (in any field)
+    // to a document from any other collection, we need a populate() method to fill the field with that document.
+    const product = await Product.findById(id).populate();
     res.render('products/show', {product});
 });
 

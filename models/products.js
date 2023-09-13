@@ -21,7 +21,12 @@ const productSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
-    reviews: []
+    reviews: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Review'
+        }
+    ]
 });
 
 // creating model from product Schema

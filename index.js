@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const path = require('path');
 // importing the routes for use
 const productRoutes = require('./routes/products');
+const riviewRoutes = require('./routes/review');
+
 const ejsMate = require('ejs-mate');
 var methodOverride = require('method-override');
 const PORT = 5000;
@@ -23,11 +25,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/ecommerce-app')
         console.log("DB Connected!!");
     })
     .catch((e)=>{
-        console.log(e)
+        console.log(e);
     })
 
 
-app.use(productRoutes)
+app.use(productRoutes);
+app.use(riviewRoutes);
 
 app.get('/', (req, res)=>{
     res.send('Working Fine');
