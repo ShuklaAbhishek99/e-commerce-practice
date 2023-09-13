@@ -20,7 +20,8 @@ const productSchema = new mongoose.Schema({
     desc: {
         type: String,
         trim: true
-    }
+    },
+    reviews: []
 });
 
 // creating model from product Schema
