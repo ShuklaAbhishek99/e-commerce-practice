@@ -1,5 +1,6 @@
 const express = require('express');
 const Product = require('../models/products');
+const Review = require('../models/review');
 const router = express.Router();
 
 // Show products
@@ -29,7 +30,7 @@ router.get('/products/:id', async (req, res)=>{
     // with the actual document from the other collection
     // Need of Population: Whenever in the schema of one collection we provide a reference (in any field)
     // to a document from any other collection, we need a populate() method to fill the field with that document.
-    const product = await Product.findById(id).populate();
+    const product = await Product.findById(id).populate('reviews');
     res.render('products/show', {product});
 });
 
@@ -50,6 +51,14 @@ router.patch('/products/:id', async (req, res)=>{
 
 router.delete('/products/:id', async (req, res)=>{
     const {id} = req.params;
+    
+    // When deleting the products, the reviews are delted from DB for that, below code is used
+    const productTodelete = await Product.findById(id);
+    for(let reviewId of productTodelete.reviews){
+        await Review.findByIdAndDelete(reviewId);
+    }
+
+    // deleting the product
     await Product.findByIdAndDelete(id, req.body);
 
     res.redirect('/products');

@@ -23,17 +23,47 @@
         </div>
     </div>
     <div class="col-lg-4 mx-auto">
-        <h2>Leave Your Review</h2>
+        <h2 class="text-center display-6">Leave Your Review</h2>
         <form action="/products/<%= product._id %>/review" method="POST">
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <label for="rating">Rating</label>
                 <input type="range" class="form-control" id="rating" name="rating" min="0" max="5">
+            </div> -->
+            <!-- This is Starability CSS -->
+            <div class="mb-3">
+                <fieldset class="starability-coinFlip">
+                    <legend>Rating</legend>
+                    <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+                    <input type="radio" id="first-rate1" name="rating" value="1" />
+                    <label for="first-rate1" title="Terrible">1 star</label>
+                    <input type="radio" id="first-rate2" name="rating" value="2" />
+                    <label for="first-rate2" title="Not good">2 stars</label>
+                    <input type="radio" id="first-rate3" name="rating" value="3" />
+                    <label for="first-rate3" title="Average">3 stars</label>
+                    <input type="radio" id="first-rate4" name="rating" value="4" />
+                    <label for="first-rate4" title="Very good">4 stars</label>
+                    <input type="radio" id="first-rate5" name="rating" value="5" />
+                    <label for="first-rate5" title="Amazing">5 stars</label>
+                  </fieldset>
             </div>
             <div class="mb-3">
-                <label for="comment">Description</label>
+                <legend for="comment">Comment</legend>
                 <textarea class="form-control" name="comment" id="comment" cols="30" rows="6"></textarea>
             </div>
             <button type="submit" class="btn btn-sm btn-success">Submit</button>
         </form>
+
+        <div>
+            <% for( let review of product.reviews ) { %>
+                <div class="card my-3">
+                    <!-- this is how u include starability result -->
+                    <h5 class="starability-result m-3" data-rating="<%= review.rating %>"></h5>
+                    <div class="card-body">
+                      <p class="card-text"><%= review.comment %></p>
+                      <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                  </div>
+            <% } %>
+        </div>
     </div>
 </div>
