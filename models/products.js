@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+const Review = require('./review')
 
 // creating a product Schema how the data will be stored
 const productSchema = new mongoose.Schema({
-    name:{
+    name: {
         type: String,
         trim: true,
         required: true
@@ -26,7 +27,11 @@ const productSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Review'
         }
-    ]
+    ],
+    avgRating: {
+        type: Number,
+        default: 0
+    }
 });
 
 // creating model from product Schema

@@ -2,19 +2,22 @@
 <% layout('layouts/boilerplate') -%>
 
 <section class="d-flex flex-wrap gap-5 justify-content-center">
-    <% for( let item of products) { %>
+    <% for( let product of products) { %>
         <div class="card" style="width: 18rem;">
-            <img src="<%= item.img %>" class="card-img-top" alt="...">
+            <div class="card">
+                <img src="<%= product.img %>" class="card-img-top" alt="...">
+                <span class="badge text-bg-light position-absolute" style="top:85%; left:2%"><%= product.avgRating %> &star; | <%= product.reviews.length %></span>
+            </div>
             <div class="card-body">
                 <h5 class="card-title">
-                    <%= item.name %>
+                    <%= product.name %>
                 </h5>
-                <h5>$ <%= item.price %>
+                <h5>$ <%= product.price %>
                 </h5>
                 <p class="card-text">
-                    <%= item.desc %>
+                    <%= product.desc %>
                 </p>
-                <a href="/products/<%= item._id %>" class="btn btn-primary btn-sm">Buy Now</a>
+                <a href="/products/<%= product._id %>" class="btn btn-primary btn-sm">Buy Now</a>
             </div>
         </div>
     <% } %>
