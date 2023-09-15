@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Review = require('./review')
+const Review = require('./review');
+const Joi = require('joi');
 
 // creating a product Schema how the data will be stored
 const productSchema = new mongoose.Schema({
@@ -33,6 +34,16 @@ const productSchema = new mongoose.Schema({
         default: 0
     }
 });
+
+// this helps in deletion of the object
+// use pre and post before mongoose.model
+productSchema.post('findOneAndDelete', async (product)=>{
+    // console.log(product);
+
+    if(product.reviews.length > 0){
+        await Review.deleteMany({id: {$in: product.reviews}})
+    }
+})
 
 // creating model from product Schema
 const Product = mongoose.model('Products', productSchema);
