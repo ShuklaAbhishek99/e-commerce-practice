@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Review = require('./review');
-const Joi = require('joi');
 
 // creating a product Schema how the data will be stored
 const productSchema = new mongoose.Schema({

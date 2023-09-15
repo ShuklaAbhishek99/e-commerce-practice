@@ -2,13 +2,14 @@ const express = require('express');
 const Product = require('../models/products');
 const Review = require('../models/review');
 const router = express.Router();
+const {validateProduct} = require('../middlewares/middleware');
 
 router.get('/products', async (req, res) => {
     try {
         const products = await Product.find({});
         res.render('products/index', { products });
     } catch (error) {
-        res.send('error', { err: error })
+        res.render('error', { err: error.message })
     }
 })
 
@@ -20,7 +21,7 @@ router.get('/products', async (req, res) => {
         // res.send(products);
         res.render('products/index', { products });
     } catch (error) {
-        res.send('error', { err: error })
+        res.render('error', { err: error.message })
     }
 });
 
@@ -29,7 +30,7 @@ router.get('/products/new', (req, res) => {
     try {
         res.render('products/new');
     } catch (error) {
-        res.send('error', {err: error})
+        res.render('error', {err: error.message})
     }
 });
 
@@ -40,7 +41,7 @@ router.post('/products', async (req, res) => {
         await Product.create(req.body);
         res.redirect('/products');
     } catch (error) {
-        res.send('error', {err: error})
+        res.render('error', {err: error.message})
     }
 });
 
@@ -55,7 +56,7 @@ router.get('/products/:id', async (req, res) => {
         const product = await Product.findById(id).populate('reviews');
         res.render('products/show', { product });
     } catch (error) {
-        res.send('error', {err: error})
+        res.render('error', {err: error.message})
     }
 });
 
@@ -67,7 +68,7 @@ router.get('/products/:id/edit', async (req, res) => {
     
         res.render('products/edit-update', { product });
     } catch (error) {
-        res.send('error', {err: error})
+        res.render('error', {err: error.message})
     }
 });
 
@@ -78,7 +79,7 @@ router.patch('/products/:id', async (req, res) => {
     
         res.redirect(`/products/${id}`);
     } catch (error) {
-        res.send('error', {err: error})
+        res.render('error', {err: error.message})
     }
 });
 
@@ -97,7 +98,7 @@ router.delete('/products/:id', async (req, res) => {
     
         res.redirect('/products');
     } catch (error) {
-        res.send('error', {err: error})
+        res.render('error', {err: error.message})
     }
 })
 
