@@ -21,8 +21,11 @@ router.post('/products/:productId/review', validateReview, async (req, res)=>{
     await product.save();
     await newReview.save();
 
+    // from connect flash
+    req.flash('success', 'Added Your review successfully!!');
+
     // back will send you on previous page 
     res.redirect('back');
-})
+});
 
 module.exports = router;

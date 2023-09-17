@@ -9,5 +9,5 @@ module.exports.productSchema = Joi.object({
 
 module.exports.reviewSchema = Joi.object({
     rating: Joi.number().min(0).max(5).required(),
-    comment: Joi.string().required
+    comment: Joi.string().required()
 })

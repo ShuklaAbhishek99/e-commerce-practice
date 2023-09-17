@@ -39,6 +39,9 @@ router.post('/products', async (req, res) => {
     try {
         // console.log(req.body);
         await Product.create(req.body);
+
+        req.flash('success', 'Added Your Product Successfully!!');
+
         res.redirect('/products');
     } catch (error) {
         res.render('error', {err: error.message})
@@ -60,6 +63,7 @@ router.get('/products/:id', async (req, res) => {
     }
 });
 
+// product edit page
 router.get('/products/:id/edit', async (req, res) => {
     try {
         // res.send('Edit Page');
@@ -72,17 +76,22 @@ router.get('/products/:id/edit', async (req, res) => {
     }
 });
 
+// product update method
 router.patch('/products/:id', async (req, res) => {
     try {
         const { id } = req.params;
+
         await Product.findByIdAndUpdate(id, req.body);
-    
+
+        req.flash('success', 'Edited Your Product Successfully!!');
+
         res.redirect(`/products/${id}`);
     } catch (error) {
         res.render('error', {err: error.message})
     }
 });
 
+// product delete message
 router.delete('/products/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -95,7 +104,10 @@ router.delete('/products/:id', async (req, res) => {
     
         // deleting the product
         await Product.findByIdAndDelete(id, req.body);
-    
+        
+        req.flash('success', 'Deleted Your Product Successfully!!');
+
+        
         res.redirect('/products');
     } catch (error) {
         res.render('error', {err: error.message})

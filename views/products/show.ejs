@@ -1,6 +1,9 @@
 <% layout('layouts/boilerplate') -%>
 
 <div class="row">
+
+    <%- include('../partials/flash') %>
+    
     <div class="col-lg-4 mx-auto mb-4">
         <div class="card" style="width: 20rem;">
             <img src="<%= product.img %>" class="card-img-top" alt="...">
@@ -24,7 +27,7 @@
     </div>
     <div class="col-lg-4 mx-auto">
         <h2 class="text-center display-6">Leave Your Review</h2>
-        <form action="/products/<%= product._id %>/review" method="POST" novalidate class="needs-validation">
+        <form class="mb-4 needs-validation" action="/products/<%= product._id %>/review" method="POST" novalidate >
             <!-- <div class="mb-3">
                 <label for="rating">Rating</label>
                 <input type="range" class="form-control" id="rating" name="rating" min="0" max="5">
@@ -32,8 +35,8 @@
             <!-- This is Starability CSS -->
             <div class="mb-3">
                 <fieldset class="starability-coinFlip">
-                    <legend>Rating</legend>
-                    <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." required/>
+                    <!-- <legend>Rating</legend> -->
+                    <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating."/>
                     <input type="radio" id="first-rate1" name="rating" value="1"/>
                     <label for="first-rate1" title="Terrible">1 star</label>
                     <input type="radio" id="first-rate2" name="rating" value="2"/>
