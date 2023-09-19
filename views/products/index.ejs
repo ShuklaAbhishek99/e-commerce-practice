@@ -12,8 +12,16 @@
                 <span class="badge text-bg-light position-absolute" style="top:85%; left:2%"><%= product.avgRating %> &star; | <%= product.reviews.length %></span>
             </div>
             <div class="card-body">
-                <h5 class="card-title">
-                    <%= product.name %>
+                <h5 class="card-title d-flex justify-content-between align-items-center">
+                    <span><%= product.name %></span>
+                    <span><%= product.name %></span>
+                        <span class="btn">
+                            <% if (currentUser && currentUser.wishList.includes(product._id)) { %>
+                                <i class="fas fa-heart product-like-button" product-id="<%= product._id %>"></i>
+                            <% } else { %>
+                                <i class="far fa-heart product-like-button" product-id="<%= product._id %>"></i>
+                            <% } %>
+                        </span>
                 </h5>
                 <h5>$ <%= product.price %>
                 </h5>
@@ -25,3 +33,5 @@
         </div>
     <% } %>
 </section>
+
+<script src="/js/like.js"></script>

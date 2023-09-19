@@ -68,12 +68,16 @@ app.use((req, res, next)=>{
     next();
 });
 
+// ------APIs---------
+const productAPI = require('./routes/api/productapi')
+
 app.use(productRoutes);
 app.use(riviewRoutes);
 app.use(authRoutes);
+app.use(productAPI);
 
 app.get('/', (req, res) => {
-    res.send('Working Fine');
+    res.render('home');
 });
 
 app.listen(PORT, () => {

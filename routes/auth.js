@@ -28,7 +28,7 @@ router.get('/signup', (req, res) => {
 
 router.post('/signup', async (req, res) => {
     try {
-        const { username, email, password } = req.body;
+        const { username, email, role, password } = req.body;
         const user = new User({ username, email, role });
         const newUser = await User.register(user, password);
 
@@ -58,7 +58,7 @@ router.post('/login',
     }
 );
 
-router.get('/logout', async (req, res, next) => {
+router.get('/logout', (req, res, next) => {
     req.logout(function (err) {
         if (err) { return next(err); }
 

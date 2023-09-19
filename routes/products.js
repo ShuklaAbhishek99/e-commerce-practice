@@ -2,16 +2,8 @@ const express = require('express');
 const Product = require('../models/products');
 const Review = require('../models/review');
 const router = express.Router();
-const {validateProduct, isLoggedin} = require('../middlewares/middleware');
+const {validateProduct, isLoggedin, isSeller, isProductAuthor} = require('../middlewares/middleware');
 
-router.get('/products', async (req, res) => {
-    try {
-        const products = await Product.find({});
-        res.render('products/index', { products });
-    } catch (error) {
-        res.render('error', { err: error.message })
-    }
-});
 
 // Show products
 router.get('/products', async (req, res) => {
@@ -26,7 +18,7 @@ router.get('/products', async (req, res) => {
 });
 
 // New file request, new page form to add an item
-router.get('/products/new', isLoggedin, (req, res) => {
+router.get('/products/new', isLoggedin, isSeller, (req, res) => {
     try {
         res.render('products/new');
     } catch (error) {
@@ -35,10 +27,12 @@ router.get('/products/new', isLoggedin, (req, res) => {
 });
 
 // sending data to server for product addition
-router.post('/products', async (req, res) => {
+router.post('/products', isLoggedin, isSeller, validateProduct, async (req, res) => {
     try {
         // console.log(req.body);
-        await Product.create(req.body);
+        // const {name, price, desc, imagge} = req.body;
+        // below code is similar to above
+        await Product.create({...req.body, author:req.user._id});
 
         req.flash('success', 'Added Your Product Successfully!!');
 
@@ -64,7 +58,7 @@ router.get('/products/:id', async (req, res) => {
 });
 
 // product edit page
-router.get('/products/:id/edit', isLoggedin, async (req, res) => {
+router.get('/products/:id/edit', isLoggedin, isSeller, isProductAuthor, async (req, res) => {
     try {
         // res.send('Edit Page');
         const { id } = req.params;
@@ -77,7 +71,7 @@ router.get('/products/:id/edit', isLoggedin, async (req, res) => {
 });
 
 // product update method
-router.patch('/products/:id', async (req, res) => {
+router.patch('/products/:id', isLoggedin, isSeller, validateProduct, isProductAuthor, async (req, res) => {
     try {
         const { id } = req.params;
 
@@ -92,7 +86,7 @@ router.patch('/products/:id', async (req, res) => {
 });
 
 // product delete message
-router.delete('/products/:id', isLoggedin, async (req, res) => {
+router.delete('/products/:id', isLoggedin, isSeller, isProductAuthor, async (req, res) => {
     try {
         const { id } = req.params;
     

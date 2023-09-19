@@ -9,10 +9,16 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    role:{
+    role: {
         type: String,
         default: 'buyer'
-    }
+    },
+    wishList: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Product'
+        }
+    ]
     // username: {
     //     type: String,
     //     required: true,
