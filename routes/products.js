@@ -2,7 +2,7 @@ const express = require('express');
 const Product = require('../models/products');
 const Review = require('../models/review');
 const router = express.Router();
-const {validateProduct} = require('../middlewares/middleware');
+const {validateProduct, isLoggedin} = require('../middlewares/middleware');
 
 router.get('/products', async (req, res) => {
     try {
@@ -11,7 +11,7 @@ router.get('/products', async (req, res) => {
     } catch (error) {
         res.render('error', { err: error.message })
     }
-})
+});
 
 // Show products
 router.get('/products', async (req, res) => {
@@ -26,7 +26,7 @@ router.get('/products', async (req, res) => {
 });
 
 // New file request, new page form to add an item
-router.get('/products/new', (req, res) => {
+router.get('/products/new', isLoggedin, (req, res) => {
     try {
         res.render('products/new');
     } catch (error) {
@@ -64,7 +64,7 @@ router.get('/products/:id', async (req, res) => {
 });
 
 // product edit page
-router.get('/products/:id/edit', async (req, res) => {
+router.get('/products/:id/edit', isLoggedin, async (req, res) => {
     try {
         // res.send('Edit Page');
         const { id } = req.params;
@@ -92,7 +92,7 @@ router.patch('/products/:id', async (req, res) => {
 });
 
 // product delete message
-router.delete('/products/:id', async (req, res) => {
+router.delete('/products/:id', isLoggedin, async (req, res) => {
     try {
         const { id } = req.params;
     
@@ -112,6 +112,6 @@ router.delete('/products/:id', async (req, res) => {
     } catch (error) {
         res.render('error', {err: error.message})
     }
-})
+});
 
 module.exports = router;
