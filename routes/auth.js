@@ -29,7 +29,7 @@ router.get('/signup', (req, res) => {
 router.post('/signup', async (req, res) => {
     try {
         const { username, email, password } = req.body;
-        const user = new User({ username, email });
+        const user = new User({ username, email, role });
         const newUser = await User.register(user, password);
 
         req.logIn(newUser, function (err) {
@@ -47,13 +47,11 @@ router.post('/signup', async (req, res) => {
 
 router.post('/login',
     // if failure in login then this method will show
-    passport.authenticate(
-        'local',
-        {
+    passport.authenticate('local',{
             failureRedirect: '/login',
             failureFlash: true
-        }
-    ),
+    }),
+    
     (req, res) => {
         req.flash('success', `Welcome!! ${req.user.username}`);
         res.redirect('/products');

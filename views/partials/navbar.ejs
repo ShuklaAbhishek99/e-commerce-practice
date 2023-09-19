@@ -16,16 +16,16 @@
                     <a class="nav-link" href="/products">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-disabled="true" href="/products/new">Add New Item</a>
+                    <a class="nav-link" href="/products/new">Add New Item</a>
                 </li>
             </ul>
 
             <!-- if user exists then show logout only else show login -->
             <div class="navbar-nav ml-auto">
-                <% if (!locals.currentUser) { %>
+                <% if (!currentUser) { %>
                     <a href="/login" class="nav-link" >Login</a>
                 <% } else { %>
-                    <a href="#" class="nav-link"><i class="fa fas fa-shopping-cart"></i>
+                    <a href="#" class="nav-link"><i class="fa fa-shopping-cart"></i>
                       <sup><span class="badge bg-danger">2</span></sup>
                     </a>
                     <a href="/logout" class="nav-link">Logout</a>

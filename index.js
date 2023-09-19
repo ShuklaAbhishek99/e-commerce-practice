@@ -48,13 +48,6 @@ app.use(session(sessionConfig))
 // using connect-flash
 app.use(connectFlash());
 
-app.use((req, res, next)=>{
-    res.locals.currentUser = req.user;
-    res.locals.success = req.flash('success');
-    res.locals.reject = req.flash('reject');
-    next();
-});
-
 // initializing middleware for passport
 app.use(passport.initialize());
 app.use(passport.session());
@@ -66,6 +59,14 @@ passport.use(new LocalStrategy(User.authenticate()));
 // this tells passport to use passport-local-mongoose to add or remove user from session
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+// writing this below code above before serialize and deserialize the user won't get detected
+app.use((req, res, next)=>{
+    res.locals.currentUser = req.user;
+    res.locals.success = req.flash('success');
+    res.locals.reject = req.flash('reject');
+    next();
+});
 
 app.use(productRoutes);
 app.use(riviewRoutes);
