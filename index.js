@@ -5,8 +5,9 @@ const path = require('path');
 
 // importing the routes for use
 const productRoutes = require('./routes/products');
-const riviewRoutes = require('./routes/review');
+const reviewRoutes = require('./routes/review');
 const authRoutes = require('./routes/auth');
+const cartRoutes = require('./routes/cart');
 
 const ejsMate = require('ejs-mate');
 var methodOverride = require('method-override');
@@ -72,9 +73,11 @@ app.use((req, res, next)=>{
 const productAPI = require('./routes/api/productapi')
 
 app.use(productRoutes);
-app.use(riviewRoutes);
+app.use(reviewRoutes);
 app.use(authRoutes);
+app.use(cartRoutes);
 app.use(productAPI);
+
 
 app.get('/', (req, res) => {
     res.render('home');

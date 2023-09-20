@@ -49,7 +49,7 @@ productSchema.post('findOneAndDelete', async (product)=>{
 })
 
 // creating model from product Schema
-const Product = mongoose.model('Products', productSchema);
+const Product = mongoose.model('Product', productSchema);
 
 // exporting the model
 module.exports = Product;
