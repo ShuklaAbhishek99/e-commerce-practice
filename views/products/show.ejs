@@ -11,12 +11,13 @@
                 <h5 class="card-title">
                     <%= product.name %>
                 </h5>
-                <h5>$ <%= product.price %>
+                <h5 id="product-price">$ <%= product.price %>
                 </h5>
                 <p class="card-text">
                     <%= product.desc %>
                 </p>
-                <a href="#" class="btn btn-primary btn-sm">Buy Now</a>
+                <a href="#" id="buy-btn" class="btn btn-primary btn-sm">Buy Now</a>
+
                 <form class="d-inline" action="/user/<%= product._id %>/add" method="post">
                     <button class="btn btn-success btn-sm">Add to Cart</button>
                   </form>
@@ -75,3 +76,5 @@
         </div>
     </div>
 </div>
+
+<script src="/js/payment.js"></script>
