@@ -4,6 +4,7 @@
 
 main {
     margin-top: 5.5rem;
+    flex-grow: 1;
 }
 
 .outer-container {

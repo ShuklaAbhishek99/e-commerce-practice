@@ -1,12 +1,12 @@
 const express = require('express');
+const router = express.Router();
 const User = require('../models/user');
 const passport = require('passport');
-const router = express.Router();
 
 // router.get('/random', (req, res)=>{
 //     res.send('Working Fine')
 // })
-
+// creating user manually
 // router.get('/fakeuser', async (req, res)=>{
 //     const user = {
 //         email: 'Abhishekshukla@gmail.com',
@@ -27,22 +27,12 @@ router.get('/signup', (req, res) => {
 });
 
 router.post('/signup', async (req, res) => {
-    try {
         const { username, email, role, password } = req.body;
         const user = new User({ username, email, role });
-        const newUser = await User.register(user, password);
+        await User.register(user, password);
 
-        req.logIn(newUser, function (err) {
-            if (err) {
-                return next(err);
-            }
-            req.flash('success', 'Welcome, You are registered successfully!');
-            res.redirect('/products');
-        });
-    } catch (error) {
-        req.flash('reject', error.message)
-        res.redirect('/signup');
-    }
+        req.flash('success', 'Please LogIn, you are successfully registered!');
+        res.redirect('/login');
 });
 
 router.post('/login',

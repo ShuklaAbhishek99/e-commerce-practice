@@ -27,4 +27,4 @@ window.document.addEventListener('click', (e) => {
         const productId = btn.getAttribute('product-id');
         likeButton(productId, btn);
     }
-})
+});

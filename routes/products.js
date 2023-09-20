@@ -1,7 +1,7 @@
 const express = require('express');
+const router = express.Router();
 const Product = require('../models/products');
 const Review = require('../models/review');
-const router = express.Router();
 const {validateProduct, isLoggedin, isSeller, isProductAuthor} = require('../middlewares/middleware');
 
 
@@ -45,11 +45,11 @@ router.post('/products', isLoggedin, isSeller, validateProduct, async (req, res)
 // product show request
 router.get('/products/:id', async (req, res) => {
     try {
-        const { id } = req.params;
         // Population is the process of replacing the specified path in the document of one collection,
         // with the actual document from the other collection
         // Need of Population: Whenever in the schema of one collection we provide a reference (in any field)
         // to a document from any other collection, we need a populate() method to fill the field with that document.
+        const { id } = req.params;
         const product = await Product.findById(id).populate('reviews');
         res.render('products/show', { product });
     } catch (error) {
@@ -97,7 +97,7 @@ router.delete('/products/:id', isLoggedin, isSeller, isProductAuthor, async (req
         // }
     
         // deleting the product
-        await Product.findByIdAndDelete(id, req.body);
+        await Product.findByIdAndDelete(id);
         
         req.flash('success', 'Deleted Your Product Successfully!!');
 

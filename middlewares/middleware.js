@@ -41,8 +41,7 @@ module.exports.isLoggedin = (req, res, next) => {
         req.flash('reject', 'Please Log in first!!');
         return res.redirect('/login');
     }
-    next();
-
+    
     next();
 };
 
@@ -52,6 +51,7 @@ module.exports.isSeller = (req, res, next) => {
         req.flash('reject', 'You are not authorized to do that');
         return res.redirect('back');
     }
+
     next();
 };
 

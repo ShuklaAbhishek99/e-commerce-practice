@@ -44,7 +44,7 @@ productSchema.post('findOneAndDelete', async (product)=>{
     // console.log(product);
 
     if(product.reviews.length > 0){
-        await Review.deleteMany({id: {$in: product.reviews}})
+        await Review.deleteMany({_id: {$in: product.reviews}})
     }
 })
 

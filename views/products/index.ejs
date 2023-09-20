@@ -14,7 +14,6 @@
             <div class="card-body">
                 <h5 class="card-title d-flex justify-content-between align-items-center">
                     <span><%= product.name %></span>
-                    <span><%= product.name %></span>
                         <span class="btn">
                             <% if (currentUser && currentUser.wishList.includes(product._id)) { %>
                                 <i class="fas fa-heart product-like-button" product-id="<%= product._id %>"></i>
